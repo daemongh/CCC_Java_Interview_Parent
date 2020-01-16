@@ -1,0 +1,129 @@
+<!--
+
+    Copyright (C) 2019 CCCIS Casualty (admin@aisreview.com)
+
+    The software code contained herein is the property of CCCIS
+    and its subsidiaries and affiliates (collectively, “CCCIS”).
+
+    Use of this software code and any applications and information therein
+    constitutes acknowledgement of and consent to this notice
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.infrastructurebuilder</groupId>
+    <artifactId>ibparent</artifactId>
+    <version>23</version>
+  </parent>
+  <groupId>com.cccis.casualty</groupId>
+  <artifactId>cccparent</artifactId>
+  <packaging>pom</packaging>
+  <url>${ib.site.view.url}/</url>
+  <version>1-SNAPSHOT</version>
+  <issueManagement>
+    <url>${github.url.base}/cccparent/issues</url>
+    <system>ADS</system>
+  </issueManagement>
+
+  <organization>
+    <name>CCCIS Casualty</name>
+    <url>https://www.cccis.com/casualty</url>
+  </organization>
+  <scm>
+    <connection>scm:git:${git.url}</connection>
+    <developerConnection>scm:git:${git.url}</developerConnection>
+    <url>${git.scm.url}</url>
+    <tag>HEAD</tag>
+  </scm>
+  <developers>
+    <developer>
+      <id>admin</id>
+      <email>admin@aisreview.com</email>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>CCIS License</name>
+      <url>https://some.license.url.com</url>
+    </license>
+  </licenses>
+  <properties>
+    <team.group.id>CCC-Casualty</team.group.id>
+    <ads.project>CAS</ads.project>
+    <git.http.url>${git.scm.url}.git</git.http.url>
+    <git.scm.url>https://github.com/${team.group.id}/${project.artifactId}</git.scm.url>
+    <!-- <git.url>git@ssh.dev.azure.com:v3:${team.group.id}/${ads.project}/${project.artifactId}</git.url> --> 
+    <!-- <issue.management.url>https://dev.azure.com/${team.group.id}/${ads.project}/_workitems</issue.management.url> -->
+    <!-- <jenkins.url>https://dev.azure.com/${team.group.id}/${ads.project}</jenkins.url> -->
+    <nexus.site.url>https://nexus.somewhereelse.com/sites</nexus.site.url>
+    <ccciscasualty.license.email>admin@aisreview.com</ccciscasualty.license.email>
+    <ccciscasualty.license.name>CCCIS Casualty</ccciscasualty.license.name>
+    <site.path>com.ccccis.casualty/ibparent-minimal/${project.version}</site.path>
+    <cccis.casualty.license.version>1.0.0-SNAPSHOT</cccis.casualty.license.version>
+    <ib.data.version>0.3.3</ib.data.version>
+    <ib.data.bom.version>${ib.data.version}.0</ib.data.bom.version>
+  </properties>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.infrastructurebuilder.data</groupId>
+          <artifactId>ibdata-maven-plugin</artifactId>
+          <version>${ib.data.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>com.cccis.casualty</groupId>
+            <artifactId>ccclicense</artifactId>
+            <version>${cccis.casualty.license.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>default</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>format</goal>
+            </goals>
+            <inherited>false</inherited>
+          </execution>
+        </executions>
+        <configuration>
+          <header>com/mycila/maven/plugin/license/templates/CCCISCasualty.txt</header>
+          <strictCheck>true</strictCheck>
+          <properties>
+            <owner>${ccciscasualty.license.name}</owner>
+            <email>${ccciscasualty.license.email}</email>
+          </properties>
+          <excludes>
+            <exclude>**/*.md</exclude>
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/.*</exclude>
+            <exclude>**/*.txt</exclude>
+            <exclude>src/test/resources/**</exclude>
+            <exclude>src/main/resources/**</exclude>
+            <exclude>src/main/avro/**</exclude>
+          </excludes>
+          <mapping>
+            <bash>SCRIPT_STYLE</bash>
+            <tf>SCRIPT_STYLE</tf>
+          </mapping>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <modules>
+    <module>cccexceptions</module>
+  </modules>
+</project>
